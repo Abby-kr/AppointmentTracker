@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session,sessionmaker
+from sqlalchemy.orm import Session
 
 from cli_functions.search_database import (query_doctors,query_appointments,query_patients)
 from cli_functions.create_records import (new_doctor,new_patient)
 from cli_functions.delete_records import (delete_doctor,delete_patient)
 
-db_uri = 'sqlite:///appointments.db'
-engine = create_engine(db_uri)
-Session = sessionmaker(bind=engine)
-session = Session()
 
 class Cli:
     def __init__(self):
         self.session = session
+        self.main()
 
     def main(self):
         user_name = input("Enter Your Name: ")
@@ -53,18 +50,18 @@ class Cli:
             print("Press Q to exit to main menu.")
             print(" ")
             search_option = input("Enter a search option: ")
-            if search_option == "a":
+            if search_option == "a" or search_option == "A":
                 query_doctors(session, search_option)
-            elif search_option == "b":
+            elif search_option == "b" or search_option == "B":
                 query_patients(session, search_option)
-            elif search_option == "c":
+            elif search_option == "c" or search_option == "C":
                 query_appointments(session, search_option)
             elif search_option == "Q":
                 break
             else:
                 print("Invalid option, please select a, b, c, or press Q to quit.")
     
-    def create_entry(session,user_choice):
+    def create_entry(self,user_choice):
         while user_choice:
             print(" ")
             print("CREATE NEW DATA ENTRIES:")
@@ -76,43 +73,44 @@ class Cli:
             print(" ")
             print("Press Q to exit to main menu.")
             print(" ")
-            search_option = input("Selection: ")
-            if search_option == "a":
-                new_doctor(session, search_option)
-            elif search_option == "b":
-                new_patient(session, search_option)
-            elif search_option == "Q":
+            add_option = input("Selection: ")
+            if add_option == "a" or add_option == "A":
+                new_doctor(session, add_option)
+            elif add_option == "b" or add_option == "B":
+                new_patient(session, add_option)
+            elif add_option == "Q" or add_option == "Q":
                 break
             else:
                 print("Invalid option, please select a, b, or press Q to quit.")
 
-def delete_record(session,user_choice):
-    while user_choice:
-        print(" ")
-        print("You have selected the option to delete a record.")
-        print(" ")
-        print("Select from the following options:")
-        print(" ")
-        print("a: Delete individual doctor from database.")
-        print("b: Delete individual patient from database.")
-        print(" ")
-        print("Press Q to exit to main menu.")
-        print(" ")
-        search_option = input("Selection: ")
-        if search_option == "a":
-            delete_doctor(session, search_option)
-        elif search_option == "b":
-            delete_patient(session, search_option)
-        elif search_option == "Q":
-            break
-        else:
-            print("Invalid option, please select a, b or press Q to quit.")
-
-
+    def delete_record(self,user_choice):
+        while user_choice:
+            print(" ")
+            print("You have selected the option to delete a record.")
+            print(" ")
+            print("Select from the following options:")
+            print(" ")
+            print("a: Delete individual doctor from database.")
+            print("b: Delete individual patient from database.")
+            print(" ")
+            print("Press Q to exit to main menu.")
+            print(" ")
+            search_option = input("Selection: ")
+            if search_option == "a" or search_option == "A":
+                delete_doctor(session, search_option)
+            elif search_option == "b" or search_option == "B":
+                delete_patient(session, search_option)
+            elif search_option == "Q" or search_option == "q":
+                break
+            else:
+                print("Invalid option, please select a, b or press Q to quit.")
 
 
 if __name__ == "__main__":
+    engine = create_engine('sqlite:///appointments.db')
+    session = Session(engine, future=True)
     Cli()
+
 
 '''def main():
     db_uri = 'sqlite:///appointments.db'
