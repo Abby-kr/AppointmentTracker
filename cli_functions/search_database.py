@@ -71,5 +71,35 @@ def patient_by_age(session,age):
 def patient_by_gender(session,gender):
     return [doctor for doctor in session.query(Patients).filter_by(doctor_hospital=gender)]
 
-def query_appointments(self,search_option):
-    pass
+def query_appointments(session,search_option):
+    print(" ")
+    print("You have selected the option to search appointment records")
+    while search_option:
+        print(" ")
+        print("How would you like to search for the appointment(s)?")
+        print("a)By name")
+        print("b)By date")
+        print("c)By time")
+        print(" ")
+        search_filter = input("Enter your option: ")
+        if search_filter == "Q":
+            break
+        elif search_filter == "A" or search_filter =="a":
+            patient_name = input("Enter name: ")
+            patient_by_name(session,patient_name)
+        elif search_filter == "B" or search_filter =="b":
+            appointment_date = input("Enter date of appointment: ")
+            appt_by_date(session,appointment_date)
+        elif search_filter == "C" or search_filter =="c":
+            appointment_time = input("Enter time of appointment: ")
+            appt_by_time(session,appointment_time)
+
+def get_patients(session):
+    return [appt for appt in session.query(Appointments)]
+
+
+def appt_by_date(session,appointment_date):
+    return [appt for appt in session.query(Appointments).filter_by(appt_date=appointment_date)]
+
+def appt_by_time(session,appointment_time):
+    return [appt for appt in session.query(Patients).filter_by(appt_time=appointment_time)]
