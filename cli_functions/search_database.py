@@ -1,4 +1,4 @@
-from models import Doctors,Patients,Appointments
+from models import Doctors, Patients, Appointments
 
 def query_doctors(session,search_option):
     print(" ")
@@ -71,7 +71,7 @@ def patient_by_age(session,age):
     print([patient for patient in session.query(Patients).filter(Patients.age ==age)])
 
 def patient_by_gender(session,gender):
-    print([patient for patient in session.query(Patients).filter_by(Patients.gender ==gender)])
+    print([patient for patient in session.query(Patients).filter(Patients.gender ==gender)])
 
 def query_appointments(session,search_option):
     print(" ")
@@ -84,7 +84,7 @@ def query_appointments(session,search_option):
         print("c)By time")
         print(" ")
         search_filter = input("Enter your option: ")
-        if search_filter == "Q":
+        if search_filter == "Q" or search_filter == "q":
             break
         elif search_filter == "A" or search_filter =="a":
             patient_name = input("Enter name: ")
@@ -104,4 +104,4 @@ def appt_by_date(session,appointment_date):
     return [appt for appt in session.query(Appointments).filter(Appointments.date == appointment_date)]
 
 def appt_by_time(session,appointment_time):
-    return [appt for appt in session.query(Patients).filter_by(Appointments.time == appointment_time)]
+    return [appt for appt in session.query(Patients).filter(Appointments.time == appointment_time)]
