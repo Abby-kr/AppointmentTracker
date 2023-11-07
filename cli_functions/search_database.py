@@ -5,7 +5,7 @@ def query_doctors(session,search_option):
     print("You have selected the option to search doctor records")
     while search_option:
         print(" ")
-        print("How would you like to search for the doctror(s)?")
+        print("How would you like to search for the doctor(s)?")
         print("a)By name")
         print("b)By specialty")
         print("c)By hosital")
@@ -36,8 +36,40 @@ def doctors_by_hospital(session,hospital):
     return [doctor for doctor in session.query(Doctors).filter_by(doctor_hospital=hospital)]
 
 
-def query_patients(self,search_option):
-    pass
+def query_patients(session,search_option):
+    print(" ")
+    print("You have selected the option to search patient records")
+    while search_option:
+        print(" ")
+        print("How would you like to search for the patient(s)?")
+        print("a)By name")
+        print("b)By age")
+        print("c)By gender")
+        print(" ")
+        search_filter = input("Enter your option: ")
+        if search_filter == "Q":
+            break
+        elif search_filter == "A" or search_filter =="a":
+            patient_name = input("Enter name: ")
+            patient_by_name(session,patient_name)
+        elif search_filter == "B" or search_filter =="b":
+            patient_age = input("Enter age: ")
+            patient_by_age(session,patient_age)
+        elif search_filter == "C" or search_filter =="c":
+            patient_gender = input("Enter gender: ")
+            patient_by_gender(session,patient_gender)
+
+def get_patients(session):
+    return [patient for patient in session.query(Patients)]
+
+def patient_by_name(session,name):
+    return session.query(Patients).filter_by(patient_name=name).first()
+
+def patient_by_age(session,age):
+    return [doctor for doctor in session.query(Patients).filter_by(patient_age=age)]
+
+def patient_by_gender(session,gender):
+    return [doctor for doctor in session.query(Patients).filter_by(doctor_hospital=gender)]
 
 def query_appointments(self,search_option):
     pass
