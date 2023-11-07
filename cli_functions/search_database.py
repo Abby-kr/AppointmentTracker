@@ -27,29 +27,27 @@ def get_doctors(session):
     return [doctor for doctor in session.query(Doctors)]
 
 def doctor_by_name(session,name):
-    return session.query(Doctors).filter_by(doctor_name=name).first()
+    return session.query(Doctors).filter(Doctors.name == name).first()
 
 def doctors_by_specialty(session,specialty):
-    return [doctor for doctor in session.query(Doctors).filter_by(doctor_specialty=specialty)]
+    return [doctor for doctor in session.query(Doctors).filter(Doctors.specialty == specialty)]
 
 def doctors_by_hospital(session,hospital):
-    return [doctor for doctor in session.query(Doctors).filter_by(doctor_hospital=hospital)]
+    return [doctor for doctor in session.query(Doctors).filter(Doctors.hospital == hospital)]
 
 
 def query_patients(session,search_option):
     print(" ")
     print("You have selected the option to search patient records")
+    print(" ")
+    print("How would you like to search for the patient(s)?")
+    print("a)By name")
+    print("b)By age")
+    print("c)By gender")
+    print(" ")
+    search_filter = input("Enter your option: ")
     while search_option:
-        print(" ")
-        print("How would you like to search for the patient(s)?")
-        print("a)By name")
-        print("b)By age")
-        print("c)By gender")
-        print(" ")
-        search_filter = input("Enter your option: ")
-        if search_filter == "Q":
-            break
-        elif search_filter == "A" or search_filter =="a":
+        if search_filter == "A" or search_filter =="a":
             patient_name = input("Enter name: ")
             patient_by_name(session,patient_name)
         elif search_filter == "B" or search_filter =="b":
@@ -58,18 +56,22 @@ def query_patients(session,search_option):
         elif search_filter == "C" or search_filter =="c":
             patient_gender = input("Enter gender: ")
             patient_by_gender(session,patient_gender)
+        elif search_filter == "Q" or search_filter =="q":
+            break
+        else:
+            print("Invalid option entered. Please select from the list of options or press Q to exit.")
 
 def get_patients(session):
-    return [patient for patient in session.query(Patients)]
+    print([patient for patient in session.query(Patients)])
 
 def patient_by_name(session,name):
-    return session.query(Patients).filter_by(patient_name=name).first()
+    print(session.query(Patients).filter(Patients.name == name).first())
 
 def patient_by_age(session,age):
-    return [doctor for doctor in session.query(Patients).filter_by(patient_age=age)]
+    print([patient for patient in session.query(Patients).filter(Patients.age ==age)])
 
 def patient_by_gender(session,gender):
-    return [doctor for doctor in session.query(Patients).filter_by(doctor_hospital=gender)]
+    print([patient for patient in session.query(Patients).filter_by(Patients.gender ==gender)])
 
 def query_appointments(session,search_option):
     print(" ")
@@ -99,7 +101,7 @@ def get_patients(session):
 
 
 def appt_by_date(session,appointment_date):
-    return [appt for appt in session.query(Appointments).filter_by(appt_date=appointment_date)]
+    return [appt for appt in session.query(Appointments).filter(Appointments.date == appointment_date)]
 
 def appt_by_time(session,appointment_time):
-    return [appt for appt in session.query(Patients).filter_by(appt_time=appointment_time)]
+    return [appt for appt in session.query(Patients).filter_by(Appointments.time == appointment_time)]
