@@ -38,7 +38,7 @@ def new_patient(session,search_option):
         print(" ")
         name = input("Enter name(e.g Dr.Michael): ")
         age = input("Ener age: ")
-        gender = input("Enter specialty(Male/Female): ")
+        gender = input("Enter gender(Male/Female): ")
         phone_number = input("Enter phone number: ")
         email = input("Enter email: ")
         insurance_provider = input("Enter insurance provider: ")
